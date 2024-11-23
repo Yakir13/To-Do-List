@@ -41,7 +41,7 @@ def edit(tasks):
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 print(
                     Fore.GREEN
-                    + f"Task updated to '{new_task}' updated on: {timestamp}'"
+                    + f"Task updated to '{new_task}'. updated on: {timestamp}'"
                 )
             else:
                 print(Fore.RED + "Task cannot be empty.")
@@ -57,6 +57,7 @@ def edit(tasks):
 def view(tasks):
     if tasks:
         print("\nYour Tasks: ")
+        # timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         for i, (task, timestamp) in enumerate(tasks, start=1):
             print(Fore.GREEN + f"{i}. {task} - added on: {timestamp}")
     else:
@@ -85,8 +86,12 @@ def load():
 
 
 def save(tasks):
+    save_data = {
+        "tasks": tasks,
+        "last_saved": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    }
     with open(FILE_NAME, "w") as file:
-        json.dump(tasks, file, indent=4)
+        json.dump(save_data, file, indent=4)
 
 
 def menu():
