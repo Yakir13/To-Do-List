@@ -7,16 +7,7 @@ FILE_NAME = "todo_list"
 tasks = []
 
 
-def view():
-    if tasks:
-        print("\nYour Tasks:")
-        for i, (task, timestamp) in enumerate(tasks, start=1):
-            print(Fore.GREEN + f"{i}. {task} - added on: {timestamp}")
-    else:
-        print(Fore.RED + "\nNo tasks yet! Add a task to get started.")
-
-
-def add():
+def add(tasks):
     task = input("Enter a new task: ").strip()
     if task:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -26,8 +17,8 @@ def add():
         print(Fore.RED + "Task cannot be empty!")
 
 
-def remove():
-    view()
+def remove(tasks):
+    view(tasks)
     try:
         task_num = int(input(Fore.BLUE + "\nEnter the task number to remove: "))
         if 1 <= task_num <= len(tasks):
@@ -39,7 +30,40 @@ def remove():
         print(Fore.RED + "Please enter a valid number!")
 
 
-def search():
+def edit(tasks):
+    view(tasks)
+    try:
+        task_number = int(input("\nEnter the number of the task you want to edit: "))
+        if 1 <= task_number <= len(tasks):
+            new_task = input(f"Edit task '{tasks[task_number - 1]}': ").strip()
+            if new_task:
+                tasks[task_number - 1] = new_task
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                print(
+                    Fore.GREEN
+                    + f"Task updated to '{new_task}' updated on: {timestamp}'"
+                )
+            else:
+                print(Fore.RED + "Task cannot be empty.")
+        else:
+            print(Fore.RED + "Invalid task number.")
+    except ValueError:
+        print(Fore.RED + "Please enter a valid number.")
+        if not tasks:
+            print(Fore.RED + "\nYour to-do list is empty.")
+            return
+
+
+def view(tasks):
+    if tasks:
+        print("\nYour Tasks: ")
+        for i, (task, timestamp) in enumerate(tasks, start=1):
+            print(Fore.GREEN + f"{i}. {task} - added on: {timestamp}")
+    else:
+        print(Fore.RED + "\nNo tasks yet! Add a task to get started.")
+
+
+def search(tasks):
     type = input("Enter task to search: ")
     if type:
         matching_tasks = [task for task in tasks if type in task]
@@ -67,28 +91,31 @@ def save(tasks):
 
 def menu():
     print(Fore.YELLOW + "\nTo-Do List Menu")
-    print(Fore.BLUE + "1. View Tasks")
-    print(Fore.BLUE + "2. Add Task")
-    print(Fore.BLUE + "3. Remove Task")
-    print(Fore.BLUE + "4. Search Task")
-    print(Fore.BLUE + "5. Save Tasks")
-    print(Fore.BLUE + "6. Exit")
+    print(Fore.BLUE + "1. Add Task")
+    print(Fore.BLUE + "2. Remove Task")
+    print(Fore.BLUE + "3. Edit Task")
+    print(Fore.BLUE + "4. View Tasks")
+    print(Fore.BLUE + "5. Search Task")
+    print(Fore.BLUE + "6. Save Tasks")
+    print(Fore.BLUE + "7. Exit")
 
 
 while True:
     menu()
-    choice = input("\nChoose an option (1-6): ")
+    choice = input("\nChoose an option (1-7): ")
     if choice == "1":
-        view()
+        add(tasks)
     elif choice == "2":
-        add()
+        remove(tasks)
     elif choice == "3":
-        remove()
+        edit(tasks)
     elif choice == "4":
-        search()
+        view(tasks)
     elif choice == "5":
-        save(tasks)
+        search(tasks)
     elif choice == "6":
+        save(tasks)
+    elif choice == "7":
         print(Fore.GREEN + "Goodbye!")
         break
     else:
