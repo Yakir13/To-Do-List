@@ -18,7 +18,6 @@ def add(tasks):
 
 
 def remove(tasks):
-    view(tasks)
     try:
         task_num = int(input(Fore.BLUE + "\nEnter the task number to remove: "))
         if 1 <= task_num <= len(tasks):
@@ -31,37 +30,21 @@ def remove(tasks):
 
 
 def edit(tasks):
-    view(tasks)
     try:
         task_number = int(input("\nEnter the number of the task you want to edit: "))
         if 1 <= task_number <= len(tasks):
-            new_task = input(f"Edit task '{tasks[task_number - 1]}': ").strip()
+            current_task, _ = tasks[task_number - 1]
+            new_task = input(f"Edit task '{current_task}': ").strip()
             if new_task:
-                tasks[task_number - 1] = new_task
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                print(
-                    Fore.GREEN
-                    + f"Task updated to '{new_task}'. updated on: {timestamp}'"
-                )
+                tasks[task_number - 1] = (new_task, timestamp)
+                print(Fore.GREEN + f"Task updated to '{new_task}' on: {timestamp}.")
             else:
                 print(Fore.RED + "Task cannot be empty.")
         else:
             print(Fore.RED + "Invalid task number.")
     except ValueError:
         print(Fore.RED + "Please enter a valid number.")
-        if not tasks:
-            print(Fore.RED + "\nYour to-do list is empty.")
-            return
-
-
-def view(tasks):
-    if tasks:
-        print("\nYour Tasks: ")
-        # timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        for i, (task, timestamp) in enumerate(tasks, start=1):
-            print(Fore.GREEN + f"{i}. {task} - added on: {timestamp}")
-    else:
-        print(Fore.RED + "\nNo tasks yet! Add a task to get started.")
 
 
 def search(tasks):
@@ -99,15 +82,14 @@ def menu():
     print(Fore.BLUE + "1. Add Task")
     print(Fore.BLUE + "2. Remove Task")
     print(Fore.BLUE + "3. Edit Task")
-    print(Fore.BLUE + "4. View Tasks")
-    print(Fore.BLUE + "5. Search Task")
-    print(Fore.BLUE + "6. Save Tasks")
-    print(Fore.BLUE + "7. Exit")
+    print(Fore.BLUE + "4. Search Task")
+    print(Fore.BLUE + "5. Save Tasks")
+    print(Fore.BLUE + "6. Exit")
 
 
 while True:
     menu()
-    choice = input("\nChoose an option (1-7): ")
+    choice = input("\nChoose an option (1-6): ")
     if choice == "1":
         add(tasks)
     elif choice == "2":
@@ -115,12 +97,10 @@ while True:
     elif choice == "3":
         edit(tasks)
     elif choice == "4":
-        view(tasks)
-    elif choice == "5":
         search(tasks)
-    elif choice == "6":
+    elif choice == "5":
         save(tasks)
-    elif choice == "7":
+    elif choice == "6":
         print(Fore.GREEN + "Goodbye!")
         break
     else:
