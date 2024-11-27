@@ -46,10 +46,10 @@ def edit(tasks):
         )
         if 1 <= task_number <= len(tasks):
             current_task = tasks[task_number - 1]
-            new_task = input(f"Edit task '{current_task}': ").strip()
+            new_task = input(f"Edit '{current_task}': ").strip()
             if new_task:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                tasks[task_number - 1] = (new_task, timestamp)
+                tasks[task_number - 1] = f"Task: {new_task} | Timestamp: {timestamp}"
                 print(Fore.GREEN + f"Task updated to '{new_task}' on: {timestamp}.")
             else:
                 print(Fore.RED + "Task cannot be empty.")
@@ -90,7 +90,7 @@ def save(tasks):
 
 
 def menu():
-    print(Fore.YELLOW + "\nTo-Do List Menu")
+    print(Fore.WHITE + "\nTo-Do List Menu\n--------------------")
     print(Fore.BLUE + "1. Add Task")
     print(Fore.BLUE + "2. Remove Task")
     print(Fore.BLUE + "3. View Task")

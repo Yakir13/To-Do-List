@@ -1,14 +1,8 @@
 {
     "tasks": [
-        "Task: 'python' | update on: 2024-11-27 02:22:25 | Due Date: 2027-10-02",
-        [
-            "java",
-            "2024-11-27 02:22:38"
-        ],
-        [
-            "C++",
-            "2024-11-27 02:23:16"
-        ]
+        "Task: play | Timestamp: 2024-11-28 00:14:52",
+        "Task: clean | Timestamp: 2024-11-28 00:14:56",
+        "Task: shopping | Timestamp: 2024-11-28 00:16:12"
     ],
-    "last_saved": "2024-11-27 02:23:58"
+    "last_saved": "2024-11-28 00:16:39"
 }
