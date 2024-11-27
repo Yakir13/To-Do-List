@@ -8,10 +8,10 @@ tasks = []
 
 
 def add(tasks):
-    task = input("Enter a new task: ").strip()
+    task = input(Fore.YELLOW + "Enter a new task: ").strip()
     if task:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        tasks.append((task, timestamp))
+        tasks.append((f"Task: {task} | Timestamp: {timestamp}"))
         print(Fore.GREEN + f"Task '{task}' added!")
     else:
         print(Fore.RED + "Task cannot be empty!")
@@ -19,7 +19,7 @@ def add(tasks):
 
 def remove(tasks):
     try:
-        task_num = int(input(Fore.BLUE + "\nEnter the task number to remove: "))
+        task_num = int(input(Fore.YELLOW + "\nEnter the task number to remove: "))
         if 1 <= task_num <= len(tasks):
             removed = tasks.pop(task_num - 1)
             print(Fore.GREEN + f"Task '{removed}' removed!")
@@ -29,30 +29,9 @@ def remove(tasks):
         print(Fore.RED + "Please enter a valid number!")
 
 
-def due_date(tasks):
-    try:
-        task_number = int(input("Enter the number of the task to set a due date: "))
-        if 1 <= task_number <= len(tasks):
-            due_date = input("Enter the due date (YYYY-MM-DD): ").strip()
-            try:
-                datetime.datetime.strptime(due_date, "%Y-%m-%d")
-                current_task, timestamp = tasks[task_number - 1]
-                tasks[task_number - 1] = (current_task, timestamp, due_date)
-                print(
-                    Fore.GREEN
-                    + f"Due date set to '{due_date}' for task '{current_task}'."
-                )
-            except ValueError:
-                print(Fore.RED + "Invalid date format! Please use YYYY-MM-DD.")
-        else:
-            print(Fore.RED + "Invalid task number.")
-    except ValueError:
-        print(Fore.RED + "Please enter a valid number.")
-
-
 def view(tasks):
     if tasks:
-        print("\nYour Tasks: ")
+        print(Fore.YELLOW + "\nYour Tasks: ")
         for i, (task) in enumerate(tasks, start=1):
             print(Fore.GREEN + f"{i}. {task}")
     else:
@@ -62,7 +41,9 @@ def view(tasks):
 def edit(tasks):
     view(tasks)
     try:
-        task_number = int(input("\nEnter the number of the task you want to edit: "))
+        task_number = int(
+            input(Fore.YELLOW + "\nEnter the number of the task you want to edit: ")
+        )
         if 1 <= task_number <= len(tasks):
             current_task = tasks[task_number - 1]
             new_task = input(f"Edit task '{current_task}': ").strip()
@@ -79,7 +60,7 @@ def edit(tasks):
 
 
 def search(tasks):
-    type = input("Enter task to search: ")
+    type = input(Fore.YELLOW + "Enter task to search: ")
     if type:
         matching_tasks = [task for task in tasks if type in task]
         if matching_tasks:
@@ -113,11 +94,10 @@ def menu():
     print(Fore.BLUE + "1. Add Task")
     print(Fore.BLUE + "2. Remove Task")
     print(Fore.BLUE + "3. View Task")
-    print(Fore.BLUE + "4. Due Date")
-    print(Fore.BLUE + "5. Edit Task")
-    print(Fore.BLUE + "6. Search Task")
-    print(Fore.BLUE + "7. Save Tasks")
-    print(Fore.BLUE + "8. Exit")
+    print(Fore.BLUE + "4. Edit Task")
+    print(Fore.BLUE + "5. Search Task")
+    print(Fore.BLUE + "6. Save Tasks")
+    print(Fore.BLUE + "7. Exit")
 
 
 while True:
@@ -130,14 +110,12 @@ while True:
     elif choice == "3":
         view(tasks)
     elif choice == "4":
-        due_date(tasks)
-    elif choice == "5":
         edit(tasks)
-    elif choice == "6":
+    elif choice == "5":
         search(tasks)
-    elif choice == "7":
+    elif choice == "6":
         save(tasks)
-    elif choice == "8":
+    elif choice == "7":
         print(Fore.GREEN + "Goodbye!")
         break
     else:
