@@ -9,12 +9,13 @@ tasks = []
 
 def add(tasks):
     task = input(Fore.YELLOW + "Enter a new task: ").strip()
-    if task:
+    deadline = input("Enter the deadline: ")
+    if task and deadline:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        tasks.append((f"Task: {task} | Timestamp: {timestamp}"))
-        print(Fore.GREEN + f"Task '{task}' added!")
+        tasks.append((f"Task: {task} | Timestamp: {timestamp} | Deadline: {deadline}"))
+        print(Fore.GREEN + f"Task added: '{task}'\nDeadline added: '{deadline}'")
     else:
-        print(Fore.RED + "Task cannot be empty!")
+        print(Fore.RED + "Task and deadline cannot be empty!")
 
 
 def remove(tasks):
