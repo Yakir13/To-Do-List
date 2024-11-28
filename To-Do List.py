@@ -13,7 +13,10 @@ def add(tasks):
     if task and deadline:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         tasks.append((f"Task: {task} | Timestamp: {timestamp} | Deadline: {deadline}"))
-        print(Fore.GREEN + f"Task added: '{task}'\nDeadline added: '{deadline}'")
+        print(
+            Fore.GREEN
+            + f"Task added: '{task}'\nDeadline added: '{deadline}'\nAdded on: '{timestamp}'"
+        )
     else:
         print(Fore.RED + "Task and deadline cannot be empty!")
 
@@ -47,11 +50,17 @@ def edit(tasks):
         )
         if 1 <= task_number <= len(tasks):
             current_task = tasks[task_number - 1]
-            new_task = input(f"Edit '{current_task}': ").strip()
+            new_task = input(f"Edit task: ").strip()
             if new_task:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                tasks[task_number - 1] = f"Task: {new_task} | Timestamp: {timestamp}"
-                print(Fore.GREEN + f"Task updated to '{new_task}' on: {timestamp}.")
+                deadline = input("Enter the deadline: ")
+                tasks[task_number - 1] = (
+                    f"Task: {new_task} | Timestamp: {timestamp} | Deadline: {deadline}"
+                )
+                print(
+                    Fore.GREEN
+                    + f"Task updated to '{new_task}' and deadline updated to '{deadline}' on '{timestamp}'."
+                )
             else:
                 print(Fore.RED + "Task cannot be empty.")
         else:
@@ -88,10 +97,12 @@ def save(tasks):
     }
     with open(FILE_NAME, "w") as file:
         json.dump(save_data, file, indent=4)
+        if save_data:
+            print(Fore.GREEN + "Tasks saved seccessfuly!")
 
 
 def menu():
-    print(Fore.WHITE + "\nTo-Do List Menu\n--------------------")
+    print(Fore.BLUE + "\nTo-Do List Menu\n--------------------")
     print(Fore.BLUE + "1. Add Task")
     print(Fore.BLUE + "2. Remove Task")
     print(Fore.BLUE + "3. View Task")
