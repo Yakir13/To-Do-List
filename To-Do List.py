@@ -3,8 +3,20 @@ import datetime
 import os
 import json
 
-FILE_NAME = "todo_list"
+FILE_NAME = "todo_list.json"
 tasks = []
+
+
+def menu():
+    print(Fore.BLUE + "\nTo-Do List Menu\n" + "-" * 20)
+    print("1. Add Task")
+    print("2. Remove Task")
+    print("3. View Task")
+    print("4. Edit Task")
+    print("5. Search Task")
+    print("6. Save Tasks")
+    print("7. Clear Tasks")
+    print("8. Exit")
 
 
 def load():
@@ -23,6 +35,11 @@ def save(tasks):
         json.dump(save_data, file, indent=4)
         if save_data:
             print(Fore.GREEN + "Saved seccessfuly!")
+        else:
+            print("Tasks not saved")
+
+
+tasks = load()
 
 
 def add(tasks):
@@ -113,21 +130,9 @@ def clear(tasks):
         print(Fore.RED + "Action cenceled")
 
 
-def menu():
-    print(Fore.BLUE + "\nTo-Do List Menu\n--------------------")
-    print(Fore.BLUE + "1. Add Task")
-    print(Fore.BLUE + "2. Remove Task")
-    print(Fore.BLUE + "3. View Task")
-    print(Fore.BLUE + "4. Edit Task")
-    print(Fore.BLUE + "5. Search Task")
-    print(Fore.BLUE + "6. Save Tasks")
-    print(Fore.BLUE + "7. Clear Tasks")
-    print(Fore.BLUE + "8. Exit")
-
-
 while True:
     menu()
-    choice = input("\nChoose an option (1-8): ")
+    choice = input(Fore.BLUE + "\nChoose an option (1-8): ")
     if choice == "1":
         add(tasks)
     elif choice == "2":
@@ -143,7 +148,7 @@ while True:
     elif choice == "7":
         clear(tasks)
     elif choice == "8":
-        print(Fore.GREEN + "Goodbye!")
+        print("Goodbye!")
         break
     else:
         print(Fore.RED + "Invalid choice. Please try again.")
