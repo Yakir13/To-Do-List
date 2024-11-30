@@ -7,6 +7,24 @@ FILE_NAME = "todo_list"
 tasks = []
 
 
+def load():
+    if os.path.exists(FILE_NAME):
+        with open(FILE_NAME, "r") as file:
+            return json.load(file)
+    return []
+
+
+def save(tasks):
+    save_data = {
+        "tasks": tasks,
+        "last_saved": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    with open(FILE_NAME, "w") as file:
+        json.dump(save_data, file, indent=4)
+        if save_data:
+            print(Fore.GREEN + "Saved seccessfuly!")
+
+
 def add(tasks):
     task = input(Fore.YELLOW + "Enter a new task: ").strip()
     deadline = input("Enter the deadline: ")
@@ -83,22 +101,16 @@ def search(tasks):
         print(Fore.RED + "You have to search task!")
 
 
-def load():
-    if os.path.exists(FILE_NAME):
-        with open(FILE_NAME, "r") as file:
-            return json.load(file)
-    return []
-
-
-def save(tasks):
-    save_data = {
-        "tasks": tasks,
-        "last_saved": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-    }
-    with open(FILE_NAME, "w") as file:
-        json.dump(save_data, file, indent=4)
-        if save_data:
-            print(Fore.GREEN + "Tasks saved seccessfuly!")
+def clear(tasks):
+    confirm = input(
+        Fore.YELLOW + "Are youe sure you want to clear all taskes? (yes/no): "
+    ).lower()
+    if confirm == "yes":
+        tasks.clear()
+        save(tasks)
+        print(Fore.GREEN + "All tasks cleared")
+    else:
+        print(Fore.RED + "Action cenceled")
 
 
 def menu():
@@ -109,12 +121,13 @@ def menu():
     print(Fore.BLUE + "4. Edit Task")
     print(Fore.BLUE + "5. Search Task")
     print(Fore.BLUE + "6. Save Tasks")
-    print(Fore.BLUE + "7. Exit")
+    print(Fore.BLUE + "7. Clear Tasks")
+    print(Fore.BLUE + "8. Exit")
 
 
 while True:
     menu()
-    choice = input("\nChoose an option (1-7): ")
+    choice = input("\nChoose an option (1-8): ")
     if choice == "1":
         add(tasks)
     elif choice == "2":
@@ -128,6 +141,8 @@ while True:
     elif choice == "6":
         save(tasks)
     elif choice == "7":
+        clear(tasks)
+    elif choice == "8":
         print(Fore.GREEN + "Goodbye!")
         break
     else:

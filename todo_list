@@ -1,9 +1,4 @@
 {
-    "tasks": [
-        "Task: python | Timestamp: 2024-11-29 01:20:18 | Deadline: 2026-10-01",
-        "Task: java | Timestamp: 2024-11-29 01:21:31 | Deadline: 2027-10-02",
-        "Task: ruby | Timestamp: 2024-11-29 01:21:58 | Deadline: 2028-10-03",
-        "Task: C++ | Timestamp: 2024-11-29 01:22:17 | Deadline: 2029-10-04"
-    ],
-    "last_saved": "2024-11-29 01:22:22"
+    "tasks": [],
+    "last_saved": "2024-11-30 16:16:11"
 }
