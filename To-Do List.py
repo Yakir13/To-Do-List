@@ -3,20 +3,8 @@ import datetime
 import os
 import json
 
-FILE_NAME = "todo_list.json"
+FILE_NAME = "todo_list"
 tasks = []
-
-
-def menu():
-    print(Fore.BLUE + "\nTo-Do List Menu\n" + "-" * 20)
-    print("1. Add Task")
-    print("2. Remove Task")
-    print("3. View Task")
-    print("4. Edit Task")
-    print("5. Search Task")
-    print("6. Save Tasks")
-    print("7. Clear Tasks")
-    print("8. Exit")
 
 
 def load():
@@ -34,12 +22,19 @@ def save(tasks):
     with open(FILE_NAME, "w") as file:
         json.dump(save_data, file, indent=4)
         if save_data:
-            print(Fore.GREEN + "Saved seccessfuly!")
-        else:
-            print("Tasks not saved")
+            print(Fore.GREEN + "Saved successfuly!")
 
 
-tasks = load()
+def menu():
+    print(Fore.BLUE + "\nTo-Do List Menu\n" + "-" * 20)
+    print("1. Add Task")
+    print("2. Remove Task")
+    print("3. View Task")
+    print("4. Edit Task")
+    print("5. Search Task")
+    print("6. Save Tasks")
+    print("7. Clear Tasks")
+    print("8. Exit")
 
 
 def add(tasks):
@@ -53,7 +48,7 @@ def add(tasks):
             + f"Task added: '{task}'\nDeadline added: '{deadline}'\nAdded on: '{timestamp}'"
         )
     else:
-        print(Fore.RED + "Task and deadline cannot be empty!")
+        print(Fore.RED + "Task or deadline cannot be empty!")
 
 
 def remove(tasks):
