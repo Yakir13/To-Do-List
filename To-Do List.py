@@ -115,7 +115,7 @@ def search(tasks):
 
 def clear(tasks):
     confirm = input(
-        Fore.YELLOW + "Are youe sure you want to clear all taskes? (yes/no): "
+        Fore.YELLOW + "Are you sure you want to clear all tasks? (yes/no): "
     ).lower()
     if confirm == "yes":
         tasks.clear()
