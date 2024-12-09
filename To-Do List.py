@@ -122,7 +122,7 @@ def clear(tasks):
         save(tasks)
         print(Fore.GREEN + "All tasks cleared")
     else:
-        print(Fore.RED + "Action cenceled")
+        print(Fore.RED + "Action cancelled")
 
 
 while True:
