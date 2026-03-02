@@ -25,12 +25,12 @@ def add():
 
 
 def view():
-    if not todo_list:
-        print("[bold red]\nYour to-do list is empty.")
-    else:
-        print("[bold yellow]\nYour Tasks:")
+    if todo_list:
+        print("[bold magenta]\nYour Tasks")
         for i, (task, timestamp) in enumerate(todo_list, start=1):
             print(f"[bold green]{i}. {task} (added on: {timestamp})")
+    else:
+        print("[bold red]\nYour to-do list is empty.")
 
 
 def remove():
@@ -88,19 +88,15 @@ def exit():
 
 
 def menu():
-    print("[bold blue]\nTo-Do List Menu\n" + "-" * 20)
-    print("[bold blue]1. Add Task")
-    print("[bold blue]2. View Tasks")
-    print("[bold blue]3. Remove Task")
-    print("[bold blue]4. Edit")
-    print("[bold blue]5. search")
-    print("[bold blue]6. Clear all tasks")
-    print("[bold blue]7. Exit")
+    print("[underline bold blue]\nTo-Do List Menu\n")
+    print(
+        "[bold blue]1. Add Task\n2. View Tasks\n3. Remove Task\n4. Edit\n5. search\n6. Clear all tasks\n7. Exit"
+    )
 
 
 while True:
     menu()
-    choice = Prompt.ask("[bold cyan]\nChoose an option")
+    choice = Prompt.ask("[bold yellow]\nChoose an option")
     if choice == "1":
         add()
     if choice == "2":
